@@ -1,0 +1,18 @@
+﻿<Application x:Class="GalagaWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:GalagaWPF"
+             StartupUri="Menu.xaml">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type local:LoginPage}">
+            <local:LoginPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:GamePage}">
+            <local:GamePage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:HighscorePage}">
+            <local:HighscorePage />
+        </DataTemplate>
+
+    </Application.Resources>
+</Application>

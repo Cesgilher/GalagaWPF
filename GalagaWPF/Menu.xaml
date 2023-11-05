@@ -1,0 +1,25 @@
+﻿<Window x:Class="GalagaWPF.Menu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GalagaWPF"
+        mc:Ignorable="d"
+        Title="Menu" Height="900" Width="1600">
+    <Grid Background="Black">
+        <Grid Width="500" Height="400">
+
+            <StackPanel>
+                <Button Name="playButton" Click="playButton_Click" Background="AntiqueWhite" Height="100" FontSize="36px">Play</Button>
+                <Button Name="setUserButton" Click="setUserButton_Click" Background="AntiqueWhite" Height="100" FontSize="36px">Set User</Button>
+                <Button Name="seeHighscoreButton" Click="seeHighscoreButton_Click" Background="AntiqueWhite" Height="100" FontSize="36px">See Highscore</Button>
+                <Button Name="exitButton" Click="exitButton_Click" Background="AntiqueWhite" Height="100" FontSize="36px">Exit</Button>
+            </StackPanel>
+            <ContentControl x:Name="ViewsContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="120,20,20,20"/>
+
+
+
+        </Grid>
+
+    </Grid>
+</Window>
