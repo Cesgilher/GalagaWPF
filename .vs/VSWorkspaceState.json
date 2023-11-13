@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\GalagaWPF",
+    "\\GalagaWPF\\Managers",
     "\\GalagaWPF\\Models"
   ],
-  "SelectedNode": "\\GalagaWPF\\Models\\Alien.cs",
+  "SelectedNode": "\\GalagaWPF\\Models\\DBContext.cs",
   "PreviewInSolutionExplorer": false
 }

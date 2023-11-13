@@ -6,17 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using GalagaWPF.Models;
 
-namespace GalagaConC_.Controller
+namespace GalagaWPF.Controller
 {
     public class UserManager
     {
         private List<User> users;
         private DBContext dB = new DBContext();
 
+        public UserManager()
+        {
+            this.users = dB.Users.ToList();
+        }
+
 
         public List<User> GetUsers()
-        {
-            users = dB.Users.ToList();
+        {            
             return users;
         }
         //public void SafeToUserFile()

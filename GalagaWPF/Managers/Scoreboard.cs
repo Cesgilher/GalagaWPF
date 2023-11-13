@@ -5,23 +5,50 @@ using System.Text;
 using System.Threading.Tasks;
 using GalagaWPF.Models;
 
-namespace GalagaConC_.Controller
+namespace GalagaWPF.Controller
 {
-    public class Scoreboard
+    public class Scoreboard : IDisposable
     {
         private List<Score> scores = new();
-        private DBContext dB = new DBContext();
+        private DBContext db = new DBContext();
+
+        public Scoreboard()
+        {
+            this.scores = db.Scores.ToList();
+        }
 
 
         public List<Score> GetScores()
-        {
-            scores = dB.Scores.ToList();
+        {           
             return scores;
         }
-        //public void SafeToScoreFile()
-        //{
-        //    dB.SaveAll(scores);
-        //}
+
+        public void SafeScores()
+        {
+            var existingScores = db.Scores.ToList();
+
+            foreach (var existingScore in existingScores)
+            {
+                var localScore = scores.FirstOrDefault(s => s.Id == existingScore.Id);
+                if (localScore == null) 
+                {
+                    db.Scores.Remove(existingScore);
+                }
+                else
+                {
+                    db.Entry(existingScore).CurrentValues.SetValues(localScore);
+                }
+            }
+            
+            foreach (var newScore in scores.Where(s => !existingScores .Any(e => e.Id == s.Id)))
+            {
+                db.Scores.Add(newScore);
+
+            }
+
+            db.SaveChanges();
+            
+        }
 
         public void AddScore(Score score)
         {
@@ -36,14 +63,14 @@ namespace GalagaConC_.Controller
 
         }
 
-        //public void ListScores()
-        //{
-        //    foreach (Score score in scores)
-        //    {
-        //        Console.WriteLine($"Score: {score.Points}, Level: {score.Level}, User: {score.IdUser} ");
+        public void Dispose()
+        {
+            SafeScores();
 
-        //    }
+            GC.SuppressFinalize(this);
+        }
 
-        //}
+
+
     }
 }

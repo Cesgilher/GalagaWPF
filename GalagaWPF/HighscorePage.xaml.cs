@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalagaWPF.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,10 @@ namespace GalagaWPF
     {
         public HighscorePage()
         {
+            Scoreboard scoreboard = new Scoreboard();
+
+            DataContext = scoreboard.GetScores();
+
             InitializeComponent();
         }
     }

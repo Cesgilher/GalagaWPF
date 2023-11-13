@@ -1,4 +1,4 @@
-﻿using GalagaConC_.Controller;
+﻿using GalagaWPF.Controller;
 using GalagaWPF.Models;
 using System;
 using System.Collections.Generic;

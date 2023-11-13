@@ -5,18 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using GalagaWPF.Models;
 
-public class ProjectileManager
+namespace GalagaWPF.Controller
 {
-    private List<Projectile> projectiles;
-    private DBContext dB = new DBContext();
-
-    public ProjectileManager()
+    public class ProjectileManager
     {
+        private List<Projectile> projectiles;
+        private DBContext dB = new DBContext();
 
+        public ProjectileManager()
+        {
+
+        }
+        //public List<Projectile> GetProjectiles()
+        //{
+        //    projectiles = dB.Projectiles.ToList();
+        //    return projectiles;
+        //}
     }
-    //public List<Projectile> GetProjectiles()
-    //{
-    //    projectiles = dB.Projectiles.ToList();
-    //    return projectiles;
-    //}
 }
+

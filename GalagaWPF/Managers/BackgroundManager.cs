@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using GalagaWPF.Models;
 
-public class BackgroundManager
+namespace GalagaWPF.Controller
 {
-    private List<Background> backgrounds;
-    private DBContext dB = new DBContext();
-
-    public BackgroundManager()
+    public class BackgroundManager
     {
+        private List<Background> backgrounds;
+        private DBContext dB = new DBContext();
+
+        public BackgroundManager()
+        {
+
+        }
+        //public List<Background> GetBackgrounds()
+        //{
+        //    backgrounds = dB.Backgrounds.ToList();
+        //    return backgrounds;
+        //}
+
+
 
     }
-    //public List<Background> GetBackgrounds()
-    //{
-    //    backgrounds = dB.Backgrounds.ToList();
-    //    return backgrounds;
-    //}
-
-
-
 }
+

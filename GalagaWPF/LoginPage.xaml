@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GalagaWPF"
         mc:Ignorable="d"
-        Title="LoginPage" Height="450" Width="800">
+        Title="Inicio de Sesión" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Inicio de Sesión" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+
+            <Label Content="Email:"/>
+            <TextBox x:Name="txtEmail" Width="200" Margin="0,0,0,10"/>
+
+            <Label Content="Contraseña:"/>
+            <PasswordBox x:Name="txtPassword" Width="200" Margin="0,0,0,20"/>
+
+            <Button Content="Iniciar Sesión" Click="btnLogin_Click" Width="100"/>
+        </StackPanel>
     </Grid>
 </Window>
