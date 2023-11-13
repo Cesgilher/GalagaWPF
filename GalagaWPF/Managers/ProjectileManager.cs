@@ -14,9 +14,9 @@ public class ProjectileManager
     {
 
     }
-    public List<Projectile> GetProjectiles()
-    {
-        projectiles = dB.Projectiles.ToList();
-        return projectiles;
-    }
+    //public List<Projectile> GetProjectiles()
+    //{
+    //    projectiles = dB.Projectiles.ToList();
+    //    return projectiles;
+    //}
 }

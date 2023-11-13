@@ -12,11 +12,11 @@ public class BackgroundManager
     {
 
     }
-    public List<Background> GetBackgrounds()
-    {
-        backgrounds = dB.Backgrounds.ToList();
-        return backgrounds;
-    }
+    //public List<Background> GetBackgrounds()
+    //{
+    //    backgrounds = dB.Backgrounds.ToList();
+    //    return backgrounds;
+    //}
 
 
 

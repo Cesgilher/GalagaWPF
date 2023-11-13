@@ -2947,11 +2947,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj",
+      "projectUniqueName": "C:\\Users\\cesgi\\Source\\Repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj",
       "projectName": "GalagaWPF",
-      "projectPath": "D:\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj",
+      "projectPath": "C:\\Users\\cesgi\\Source\\Repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj",
       "packagesPath": "C:\\Users\\cesgi\\.nuget\\packages\\",
-      "outputPath": "D:\\GalagaWPF\\GalagaWPF\\obj\\",
+      "outputPath": "C:\\Users\\cesgi\\Source\\Repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\cesgi\\AppData\\Roaming\\NuGet\\NuGet.Config",

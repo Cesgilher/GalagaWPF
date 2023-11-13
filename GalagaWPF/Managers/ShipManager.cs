@@ -12,11 +12,11 @@ public class ShipManager
     {
 
     }
-    public List<Ship> GetShips()
-    {
-        ships = dB.Ships.ToList();
-        return ships;
-    }
+    //public List<Ship> GetShips()
+    //{
+    //    ships = dB.Ships.ToList();
+    //    return ships;
+    //}
     
     
     
