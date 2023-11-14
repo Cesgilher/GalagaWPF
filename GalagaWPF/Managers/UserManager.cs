@@ -41,9 +41,12 @@ namespace GalagaWPF.Controller
                 }
                 else
                 {
+
                     users.Add(user);
+                    dB.Users.Add(user);
                     session = user;
                     Console.WriteLine("Usuario registrado con éxito.");
+                   
 
                 }
 

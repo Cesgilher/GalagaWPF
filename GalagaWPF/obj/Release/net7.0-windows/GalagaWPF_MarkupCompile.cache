@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET7_0;NETCOREAPP
 C:\Users\cesgi\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\App.xaml
-51689082945
+5585237144
 
-24-134193870
+24-390991537
 228-1632464384
-GamePage.xaml;HighscorePage.xaml;LoginPage.xaml;Menu.xaml;RegisterPage.xaml;
+Views\GamePage.xaml;Views\HighscorePage.xaml;Views\LoginPage.xaml;Views\Menu.xaml;Views\RegisterPage.xaml;
 
 True
 

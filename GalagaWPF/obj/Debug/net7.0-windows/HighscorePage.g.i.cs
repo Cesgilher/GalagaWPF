@@ -61,7 +61,7 @@ namespace GalagaWPF {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GalagaWPF;component/highscorepage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GalagaWPF;V1.0.0.0;component/highscorepage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\HighscorePage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
