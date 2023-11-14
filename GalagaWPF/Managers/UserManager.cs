@@ -40,21 +40,15 @@ namespace GalagaWPF.Controller
                     Console.WriteLine("Ese usuario ya existe");
                 }
                 else
-                {
-
-                    users.Add(user);
+                {                 
                     dB.Users.Add(user);
+                    users = dB.Users.ToList();
                     session = user;
-                    Console.WriteLine("Usuario registrado con éxito.");
-                   
-
+                    Console.WriteLine("Usuario registrado con éxito.");                 
                 }
-
-
             }
+
             return session;
-
-
         }
 
         public User EditField<T>(User session, T newValue, Func<User, T> getField, Action<User, T> setField, string errorMessage)
