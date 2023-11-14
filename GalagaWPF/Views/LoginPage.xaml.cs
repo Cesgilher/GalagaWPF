@@ -29,6 +29,7 @@ namespace GalagaWPF
             InitializeComponent();
             this.menu = menu;
             userManager = new UserManager();
+            this.Show();
 
         }
 

@@ -25,19 +25,21 @@ namespace GalagaWPF
         public GamePage(User session, Menu menu)
         {
             InitializeComponent();
+            this.Show();
             this.menu = menu;
             if (session == null)
             {
-                // Si session es null, abre la ventana LoginPage
+                // Si session es null, crea y muestra la ventana LoginPage
                 LoginPage loginPage = new LoginPage(menu);
-                loginPage.Show();
+                this.Hide();
                 
-                this.Close();
             }
             else
             {
                 this.session = session;
             }
+
+           
         }
     }
 }

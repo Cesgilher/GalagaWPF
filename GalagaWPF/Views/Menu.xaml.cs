@@ -56,8 +56,7 @@ namespace GalagaWPF
         public void OpenGameWindow(User session)
         {
             GamePage gamePage = new GamePage(session,this);
-            gamePage.Show();
-            this.Close();
+            this.Hide();
             
         }        
 
