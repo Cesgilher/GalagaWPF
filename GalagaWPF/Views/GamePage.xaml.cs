@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalagaWPF.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,24 @@ namespace GalagaWPF
     /// </summary>
     public partial class GamePage : Window
     {
-        public GamePage()
+        User session;
+        Menu menu;
+        public GamePage(User session, Menu menu)
         {
             InitializeComponent();
+            this.menu = menu;
+            if (session == null)
+            {
+                // Si session es null, abre la ventana LoginPage
+                LoginPage loginPage = new LoginPage(menu);
+                loginPage.Show();
+                
+                this.Close();
+            }
+            else
+            {
+                this.session = session;
+            }
         }
     }
 }

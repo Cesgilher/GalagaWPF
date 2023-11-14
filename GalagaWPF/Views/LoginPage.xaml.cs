@@ -14,21 +14,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Collections.Specialized.BitVector32;
 
 
 namespace GalagaWPF
 {
-    /// <summary>
-    /// Lógica de interacción para LoginPage.xaml
-    /// </summary>
     public partial class LoginPage : Window
     {
         private UserManager userManager;
+        private Menu menu;
 
-        public LoginPage()
+        public LoginPage(Menu menu)
         {
             InitializeComponent();
+            this.menu = menu;
             userManager = new UserManager();
+
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -43,7 +44,9 @@ namespace GalagaWPF
             {
                 MessageBox.Show("Inicio de sesión exitoso. Bienvenido, " + session.Name + " " + session.LastName);
                 // Puedes cerrar la ventana de inicio de sesión o hacer lo que necesites aquí
+                menu.OpenGameWindow(session);
                 this.Close();
+
             }
             else
             {
@@ -51,13 +54,6 @@ namespace GalagaWPF
             }
 
         }
-
-        private void btnGoToRegister_Click(object sender, RoutedEventArgs e)
-        {
-            loginPanel.Visibility = Visibility.Hidden;
-            registerPanel.Visibility = Visibility.Visible;
-        }
-
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             string registerName = txtRegisterName.Text;
@@ -70,14 +66,17 @@ namespace GalagaWPF
 
             User newUser = new User(0, registerName, registerLastName, registerEmail, registerPassword);
 
-            User registeredUser = userManager.Register(newUser);
+            User session = userManager.Register(newUser);
 
-            if (registeredUser != null)
+            if (session != null)
             {
-                MessageBox.Show("Registro exitoso. Bienvenido, " + registeredUser.Name + " " + registeredUser.LastName);
+                MessageBox.Show("Registro exitoso. Bienvenido, " + session.Name + " " + session.LastName);
 
                 // Puedes cerrar la ventana de inicio de sesión o hacer lo que necesites aquí
+                menu.OpenGameWindow(session);
                 this.Close();
+
+
             }
             else
             {
@@ -85,7 +84,11 @@ namespace GalagaWPF
             }
 
         }
-
+        private void btnGoToRegister_Click(object sender, RoutedEventArgs e)
+        {
+            loginPanel.Visibility = Visibility.Hidden;
+            registerPanel.Visibility = Visibility.Visible;
+        }
         private void btnGoToLogin_Click(object sender, RoutedEventArgs e)
         {
             loginPanel.Visibility = Visibility.Visible;

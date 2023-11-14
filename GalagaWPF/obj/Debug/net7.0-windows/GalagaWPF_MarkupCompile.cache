@@ -5,16 +5,16 @@ winexe
 C#
 .cs
 C:\Users\cesgi\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\
-GalagaWPF
+GalagaWPF_gyukwmbi_wpftmp
 none
 false
-TRACE;DEBUG;NET;NET7_0;NETCOREAPP
+TRACE;RELEASE;NET;NET7_0;NETCOREAPP
 C:\Users\cesgi\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\App.xaml
 5585237144
 
-24-390991537
-228-1632464384
+311953748007
+4561030038528
 Views\GamePage.xaml;Views\HighscorePage.xaml;Views\LoginPage.xaml;Views\Menu.xaml;Views\RegisterPage.xaml;
 
-False
+True
 

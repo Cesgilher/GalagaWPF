@@ -17,36 +17,25 @@ using System.Windows.Shapes;
 
 namespace GalagaWPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    
     public partial class Menu : Window
     {
         public Menu()
         {
-            InitializeComponent();
-
-            UserManager um = new UserManager();
-            var users =um.GetUsers();
-            foreach (User u in users)
-            {
-                Console.WriteLine(u.Name);
-            }
-           
+            InitializeComponent();          
             
 
         }
 
         private void playButton_Click(object sender, RoutedEventArgs e)
         {
-            GamePage gamePage = new GamePage();
-            gamePage.Show();
-            this.Close();
+            OpenGameWindow(null);
+            
         }
 
         private void setUserButton_Click(object sender, RoutedEventArgs e)
         {
-            LoginPage gamePage = new LoginPage();
+            LoginPage gamePage = new LoginPage(this);
             gamePage.Show();
             this.Close();
         }
@@ -64,19 +53,13 @@ namespace GalagaWPF
             Application.Current.Shutdown();
         }
 
-       
-
-
-        //    interface Menu
-        //    {
-
-        //        public void Play() { }
-        //        public void SeeScoreboard() { }
-
-        //        public void SetUser() { }
-
-        //    }
-        //}
+        public void OpenGameWindow(User session)
+        {
+            GamePage gamePage = new GamePage(session,this);
+            gamePage.Show();
+            this.Close();
+            
+        }        
 
     }
 }
