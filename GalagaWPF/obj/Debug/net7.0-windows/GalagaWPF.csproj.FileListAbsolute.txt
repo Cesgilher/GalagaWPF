@@ -220,3 +220,4 @@ C:\Users\cesgi\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windo
 C:\Users\cesgi\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\Views\RegisterPage.baml
 C:\Users\cesgi\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\Views\Menu.g.cs
 C:\Users\cesgi\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\Views\Menu.baml
+C:\Users\cesgi\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\GalagaWPF.sourcelink.json

@@ -24,7 +24,7 @@ namespace GalagaWPF
         {
             Scoreboard scoreboard = new Scoreboard();
 
-            DataContext = scoreboard.GetScores();
+            DataContext = scoreboard.GetHighscores();
 
             InitializeComponent();
         }

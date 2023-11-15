@@ -63,6 +63,11 @@ namespace GalagaWPF.Controller
 
         }
 
+        public List<Score> GetHighscores()
+        {
+            return scores.OrderByDescending(s => s.Points).Take(10).ToList();
+        }
+
         public void Dispose()
         {
             SafeScores();

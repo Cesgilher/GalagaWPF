@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GalagaWPF.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GalagaWPF.Controller
 {
@@ -42,8 +43,9 @@ namespace GalagaWPF.Controller
                 else
                 {                 
                     dB.Users.Add(user);
+                    dB.SaveChanges();
                     users = dB.Users.ToList();
-                    session = user;
+                    session = dB.Users.SingleOrDefault(u => u.Email == user.Email);
                     Console.WriteLine("Usuario registrado con éxito.");                 
                 }
             }

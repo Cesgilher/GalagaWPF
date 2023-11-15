@@ -15,7 +15,7 @@ namespace GalagaWPF.Models
         private string password;
 
 
-
+        //el por defecto
         public User(int id, string name, string lastName, string email, string password)
         {
             this.id = id;
@@ -24,8 +24,19 @@ namespace GalagaWPF.Models
             this.email = email;
             this.password = password;
         }
-        
-       
+
+        //polimorfismo para el inicio de sesion y el registro
+        public User(string name, string lastName, string email, string password)
+        {
+            this.name = name;
+            this.lastName = lastName;
+            this.email = email;
+            this.password = password;
+        }
+
+
+
+
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public string LastName { get => lastName; set => lastName = value; }

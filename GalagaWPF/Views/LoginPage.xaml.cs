@@ -38,7 +38,7 @@ namespace GalagaWPF
             string email = txtEmail.Text;
             string password = txtPassword.Password;
 
-            User user = new User(0, "", "", email, password);
+            User user = new User("", "", email, password);
             User session = userManager.LogIn(user);
 
             if (session != null)
@@ -65,7 +65,7 @@ namespace GalagaWPF
             registerName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(registerName.ToLower());
             registerLastName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(registerLastName.ToLower());
 
-            User newUser = new User(0, registerName, registerLastName, registerEmail, registerPassword);
+            User newUser = new User(registerName, registerLastName, registerEmail, registerPassword);
 
             User session = userManager.Register(newUser);
 

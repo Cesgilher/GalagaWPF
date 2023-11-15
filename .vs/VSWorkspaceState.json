@@ -3,8 +3,9 @@
     "",
     "\\GalagaWPF",
     "\\GalagaWPF\\Managers",
-    "\\GalagaWPF\\Models"
+    "\\GalagaWPF\\Models",
+    "\\GalagaWPF\\Views"
   ],
-  "SelectedNode": "\\GalagaWPF.sln",
+  "SelectedNode": "\\GalagaWPF\\Managers\\UserManager.cs",
   "PreviewInSolutionExplorer": false
 }
