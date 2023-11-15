@@ -63,9 +63,23 @@ namespace GalagaWPF.Controller
 
         }
 
-        public List<Score> GetHighscores()
+        public List<object> GetHighscores()
         {
-            return scores.OrderByDescending(s => s.Points).Take(10).ToList();
+            var highscores = (
+                from score in db.Scores
+                join user in db.Users on score.IdUser equals user.Id
+                orderby score.Points descending
+                select new
+                {
+                    UserName = user.Name,
+                    UserLastName = user.LastName,
+                    ScorePoints = score.Points,
+                    ScoreLevel = score.Level
+                }
+            ).Take(10).ToList<object>();
+            
+            return highscores;
+
         }
 
         public void Dispose()

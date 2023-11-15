@@ -1,11 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\GalagaWPF",
-    "\\GalagaWPF\\Managers",
-    "\\GalagaWPF\\Models",
-    "\\GalagaWPF\\Views"
+    ""
   ],
-  "SelectedNode": "\\GalagaWPF\\Managers\\UserManager.cs",
   "PreviewInSolutionExplorer": false
 }

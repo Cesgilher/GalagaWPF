@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GalagaWPF")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+507dc65951f56b581d4c52942bc7559f3858ab75")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da7a536c8870a8b5eb376c8941e1f6d9f942e009")]
 [assembly: System.Reflection.AssemblyProductAttribute("GalagaWPF")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GalagaWPF")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
