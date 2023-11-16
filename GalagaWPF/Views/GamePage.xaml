@@ -6,8 +6,13 @@
         xmlns:local="clr-namespace:GalagaWPF"
         mc:Ignorable="d"
         KeyDown="Window_KeyDown"
-        Title="GamePage" Height="450" Width="800">
+        Title="GamePage" Height="500" Width="800">
     <Grid>
+        <Canvas x:Name="myCanvas" Focusable="True" Background="Black" KeyDown="KeyIsDown" KeyUp="KeyIsUp">
+            <Label Name="enemiesLeft" Foreground="White" FontSize="16" FontWeight="ExtraBold">Enemies left: 0</Label>
+            <Rectangle x:Name="player" Fill="White" Height="65" Width="55" Canvas.Left="387" Canvas.Top="409" />
+
+        </Canvas>
 
 
 

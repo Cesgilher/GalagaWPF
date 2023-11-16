@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PrUXCDPGO7MMgVZDM90aPdgN6/JcBB8u8/7ESHVzgy+oLw/ZVV9HKC+6/viyqWFGu/yOfWswufUWPPTiKqKGkA==",
+  "dgSpecHash": "9kWeZe/eNeSy71e0HudA+rguNJN8giWVhaB3tSrDfnJuOVy1rQmmjmFtJIHNcKshz/AQ+/qozCSVwMgFavrzLw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\cehernando\\Source\\Repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj",
+  "projectFilePath": "C:\\Users\\cehernando\\source\\repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cehernando\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\cehernando\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
