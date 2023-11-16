@@ -96,7 +96,7 @@ namespace GalagaWPF
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape && UserManager.Instance.GetSession() != null)
+            if (e.Key == Key.Escape)
             {
                 if (escapePanel.Visibility == Visibility.Collapsed)
                 {
@@ -123,11 +123,16 @@ namespace GalagaWPF
             this.Close();
         }
 
-        private void SeeHighscores_Click(object sender, RoutedEventArgs e)
+        private void GoToHighscore_Click(object sender, RoutedEventArgs e)
         {
             menu.OpenHighscorePage();
             this.Close();
         }
+
+        private void Quit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }   
 
 
 

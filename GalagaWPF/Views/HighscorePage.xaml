@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GalagaWPF"
         mc:Ignorable="d"
+        KeyDown="Window_KeyDown"
         Title="Ranking de Puntuaciones" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -13,9 +14,22 @@
         </Grid.RowDefinitions>
 
         <!-- Título -->
-        <TextBlock Text="Ranking de Puntuaciones" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,10"/>
 
-        <!-- DataGrid centrado -->
-        <DataGrid Name="scoreDataGrid" AutoGenerateColumns="True" ItemsSource="{Binding}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" CanUserSortColumns="False"/>
+
+        <!-- StackPanel para organizar elementos -->
+        <StackPanel Name="highscorePanel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="379" Width="485">
+            <TextBlock Text="Ranking de Puntuaciones" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+            <!-- DataGrid centrado -->
+            <DataGrid Name="scoreDataGrid" AutoGenerateColumns="True" ItemsSource="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" CanUserSortColumns="False"/>
+
+
+        </StackPanel>
+        <StackPanel Name="escapePanel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="252" Width="200" Visibility="Collapsed">
+            <Button Content="Go to Menu" Click="GoToMenu_Click" VerticalAlignment="Stretch" Height="63"/>
+            <Button Content="Go to Game" Click="GoToGame_Click" VerticalAlignment="Stretch" Height="63"/>
+            <Button Content="Go to Login" Click="GoToLogin_Click" VerticalAlignment="Stretch" Height="63"/>
+            <Button Content="Close Game" Click="Quit_Click" VerticalAlignment="Stretch" Height="63"/>
+        </StackPanel>
+
     </Grid>
 </Window>

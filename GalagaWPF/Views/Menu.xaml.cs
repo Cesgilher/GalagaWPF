@@ -69,7 +69,7 @@ namespace GalagaWPF
         public void OpenHighscorePage()
         {
             this.Hide();
-            highscorePage = new HighscorePage();
+            highscorePage = new HighscorePage(this);
         }
         public void OpenLoginPage()
         {

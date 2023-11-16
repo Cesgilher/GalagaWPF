@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace GalagaWPF
 {
-    /// <summary>
-    /// Lógica de interacción para HighscorePage.xaml
-    /// </summary>
     public partial class HighscorePage : Window
     {
         private Menu menu;
@@ -32,6 +29,50 @@ namespace GalagaWPF
             InitializeComponent();
             
             this.Show();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                if (escapePanel.Visibility == Visibility.Collapsed)
+                {
+                    escapePanel.Visibility = Visibility.Visible;
+                    highscorePanel.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    escapePanel.Visibility = Visibility.Collapsed;
+                    highscorePanel.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        private void GoToMenu_Click(object sender, RoutedEventArgs e)
+        {
+            menu.Show();
+            this.Close();
+        }
+
+        
+
+       
+
+        private void GoToGame_Click(object sender, RoutedEventArgs e)
+        {
+            menu.OpenGamePage();
+            this.Close();
+        }
+
+        private void GoToLogin_Click(object sender, RoutedEventArgs e)
+        {
+            menu.OpenLoginPage();
+            this.Close();
+        }
+
+        private void Quit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
