@@ -5,34 +5,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GalagaWPF.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GalagaWPF.Controller
 {
-    public class UserManager
+    public class UserManager // Patron Singleton
     {
-
+        private static UserManager instance;
         private List<User> users;
         private User session;
         private DBContext dB = new DBContext();
 
-        public UserManager()
+        private UserManager()
         {
             this.users = dB.Users.ToList();
         }
 
+        public static UserManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new UserManager();
+                }
+                return instance;
+            }
+        }
+
+        public User GetSession()
+        {
+            return session;
+        }
+
 
         public List<User> GetUsers()
-        {            
+        {
             return users;
         }
         //public void SafeToUserFile()
         //{
         //    dB.SaveAll(users);
         //}
-        public User Register(User user)
+        public void Register(User user)
         {
-            User session = null;
-
             if (users != null)
             {
                 bool userExists = users.Any(u => u.Email == user.Email);
@@ -42,56 +58,17 @@ namespace GalagaWPF.Controller
                     Console.WriteLine("Ese usuario ya existe");
                 }
                 else
-                {                 
+                {
                     dB.Users.Add(user);
                     dB.SaveChanges();
                     users = dB.Users.ToList();
                     session = dB.Users.SingleOrDefault(u => u.Email == user.Email);
-                    Console.WriteLine("Usuario registrado con éxito.");                 
+                    Console.WriteLine("Usuario registrado con éxito.");
                 }
             }
-
-            return session;
         }
-
-        public User EditField<T>(User session, T newValue, Func<User, T> getField, Action<User, T> setField, string errorMessage)
+        public void LogIn(User user)
         {
-            bool fieldExists = users.Any(u => getField(u).Equals(newValue));
-
-            if (!fieldExists)
-            {
-                int index = users.FindIndex(u => u.Email == session.Email);
-
-                if (index != -1)
-                {
-                    setField(users[index], newValue);
-                }
-
-                setField(session, newValue);
-            }
-            else
-            {
-                Console.WriteLine(errorMessage);
-            }
-
-            return session;
-        }
-
-        public User EditName(User session, string newName)
-        {
-            return EditField(session, newName, u => u.Name, (u, value) => u.Name = value, "Ese nombre de usuario no está disponible");
-        }
-
-        
-
-        public User EditPassword(User session, string newPassword)
-        {
-            return EditField(session, newPassword, u => u.Password, (u, value) => u.Password = value, "Esa contraseña es idéntica a la actual");
-        }
-
-        public User LogIn(User user)
-        {
-            User session = null;
             if (users != null)
             {
                 for (int i = 0; i < users.Count; i++)
@@ -111,14 +88,52 @@ namespace GalagaWPF.Controller
 
                 }
             }
-            return session;
+
         }
-        public User LogOut(User session)
+        public void LogOut()
         {
             session = null;
-            return session;
         }
-        public User Delete(User session)
+
+        public bool EditField<T>(User session, T newValue, Func<User, T> getField, Action<User, T> setField, string errorMessage)
+        {
+            bool fieldExists = users.Any(u => getField(u).Equals(newValue));
+
+            if (!fieldExists)
+            {
+                int index = users.FindIndex(u => u.Email == session.Email);
+
+                if (index != -1)
+                {
+                    setField(users[index], newValue);
+                }
+
+                setField(session, newValue);
+                return true;  // Operation succeeded
+            }
+            else
+            {
+                Console.WriteLine(errorMessage);
+                return false;  // Operation failed
+            }
+        }
+
+        public bool EditName(string newName)
+        {
+            return EditField(session, newName, u => u.Name, (u, value) => u.Name = value, "Ese nombre de usuario no está disponible");
+        }
+        public bool EditLastName(string newLastName)
+        {
+            return EditField(session, newLastName, u => u.LastName, (u, value) => u.LastName = value, "Ese nombre de usuario no está disponible");
+        }
+
+        public bool EditPassword(string newPassword)
+        {
+            return EditField(session, newPassword, u => u.Password, (u, value) => u.Password = value, "Esa contraseña es idéntica a la actual");
+        }
+
+
+        public void DeleteUser(User session)
         {
 
             if (users != null)
@@ -135,12 +150,9 @@ namespace GalagaWPF.Controller
 
                 }
             }
-            return session;
-
 
         }
-
-
     }
-
 }
+
+
