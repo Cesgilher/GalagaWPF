@@ -8,7 +8,6 @@ namespace GalagaWPF.Controller
     public class ShipManager
     {
         private List<Ship> ships;
-        private DBContext dB = new DBContext();
 
         public ShipManager()
         {

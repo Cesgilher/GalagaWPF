@@ -14,10 +14,6 @@ namespace GalagaWPF.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Score> Scores { get; set; }
 
-        //public DbSet<Ship> Ships { get; set; }
-        //public DbSet<Background> Backgrounds { get; set; }
-        //public DbSet<Projectile> Projectiles { get; set; }
-
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
