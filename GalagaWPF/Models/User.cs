@@ -34,7 +34,9 @@ namespace GalagaWPF.Models
             this.password = password;
         }
 
-
+        public User()
+        {
+        }   
 
 
         public int Id { get => id; set => id = value; }

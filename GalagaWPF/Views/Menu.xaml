@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GalagaWPF"
         mc:Ignorable="d"
-        Title="Menu" Height="900" Width="1600">
+        Title="Menu" Height="500" Width="800">
     <Grid Background="Black">
         <Grid Width="500" Height="400">
 

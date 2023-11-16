@@ -21,14 +21,12 @@ namespace GalagaWPF
 {
     public partial class LoginPage : Window
     {
-        private UserManager userManager;
         private Menu menu;
 
         public LoginPage(Menu menu)
         {
             InitializeComponent();
-            this.menu = menu;
-            userManager = new UserManager();
+            this.menu = menu;            
             this.Show();
 
         }
@@ -39,13 +37,13 @@ namespace GalagaWPF
             string password = txtPassword.Password;
 
             User user = new User("", "", email, password);
-            User session = userManager.LogIn(user);
+            UserManager.Instance.LogIn(user);
 
-            if (session != null)
+            if (UserManager.Instance.GetSession() != null)
             {
-                MessageBox.Show("Inicio de sesión exitoso. Bienvenido, " + session.Name + " " + session.LastName);
+                MessageBox.Show("Inicio de sesión exitoso. Bienvenido, " + UserManager.Instance.GetSession().Name + " " + UserManager.Instance.GetSession().LastName);
                 // Puedes cerrar la ventana de inicio de sesión o hacer lo que necesites aquí
-                menu.OpenGameWindow(session);
+                menu.OpenGamePage();
                 this.Close();
 
             }
@@ -67,14 +65,14 @@ namespace GalagaWPF
 
             User newUser = new User(registerName, registerLastName, registerEmail, registerPassword);
 
-            User session = userManager.Register(newUser);
+            UserManager.Instance.Register(newUser);
 
-            if (session != null)
+            if (UserManager.Instance.GetSession() != null)
             {
-                MessageBox.Show("Registro exitoso. Bienvenido, " + session.Name + " " + session.LastName);
+                MessageBox.Show("Registro exitoso. Bienvenido, " + UserManager.Instance.GetSession().Name + " " + UserManager.Instance.GetSession().LastName);
 
                 // Puedes cerrar la ventana de inicio de sesión o hacer lo que necesites aquí
-                menu.OpenGameWindow(session);
+                menu.OpenGamePage();
                 this.Close();
 
 
@@ -95,5 +93,43 @@ namespace GalagaWPF
             loginPanel.Visibility = Visibility.Visible;
             registerPanel.Visibility = Visibility.Hidden;
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape && UserManager.Instance.GetSession() != null)
+            {
+                if (escapePanel.Visibility == Visibility.Collapsed)
+                {
+                    escapePanel.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    escapePanel.Visibility = Visibility.Collapsed;
+                }
+            }
+        }//falta por testear
+
+        private void GoToMenu_Click(object sender, RoutedEventArgs e)
+        {
+            // Lógica para ir al menú desde la tabla
+            menu.Show();
+            this.Close();
+        }
+
+        private void GoToGame_Click(object sender, RoutedEventArgs e)
+        {
+            // Lógica para ir al juego desde la tabla
+            menu.OpenGamePage();
+            this.Close();
+        }
+
+        private void SeeHighscores_Click(object sender, RoutedEventArgs e)
+        {
+            menu.OpenHighscorePage();
+            this.Close();
+        }
+
+
+
     }
 }

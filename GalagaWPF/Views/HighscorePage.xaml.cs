@@ -20,13 +20,18 @@ namespace GalagaWPF
     /// </summary>
     public partial class HighscorePage : Window
     {
-        public HighscorePage()
+        private Menu menu;
+        public HighscorePage(Menu menu)
         {
             Scoreboard scoreboard = new Scoreboard();
 
             DataContext = scoreboard.GetHighscores();
 
+            this.menu = menu;
+
             InitializeComponent();
+            
+            this.Show();
         }
     }
 }

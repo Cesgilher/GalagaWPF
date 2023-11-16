@@ -41,5 +41,11 @@
             <TextBlock Text="¿Ya tienes una cuenta?" Margin="0,20,0,5"/>
             <Button Content="Iniciar Sesión" Click="btnGoToLogin_Click" Width="100"/>
         </StackPanel>
+        <Grid x:Name="escapePanel" Visibility="Collapsed" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <!-- Contenido de la tabla, por ejemplo, tres botones -->
+            <Button Content="Go to Menu" Click="GoToMenu_Click"/>
+            <Button Content="Go to Game" Click="GoToGame_Click"/>
+            <Button Content="See Highscores" Click="SeeHighscores_Click"/>
+        </Grid>
     </Grid>
 </Window>

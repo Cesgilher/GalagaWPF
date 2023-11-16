@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\GalagaWPF",
+    "\\GalagaWPF\\Views"
   ],
+  "SelectedNode": "\\GalagaWPF\\Views\\Menu.xaml.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -20,6 +20,11 @@ namespace GalagaWPF
     
     public partial class Menu : Window
     {
+        private GamePage gamePage;
+
+        private HighscorePage highscorePage;
+
+        private LoginPage loginPage;
         public Menu()
         {
             InitializeComponent();          
@@ -29,21 +34,17 @@ namespace GalagaWPF
 
         private void playButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenGameWindow(null);
+            OpenGamePage();
             
         }
 
         private void setUserButton_Click(object sender, RoutedEventArgs e)
         {
-            LoginPage gamePage = new LoginPage(this);
-            gamePage.Show();
-            this.Close();
+            OpenLoginPage();
         }
         private void seeHighscoreButton_Click(object sender, RoutedEventArgs e)
         {
-            HighscorePage highscorePage= new HighscorePage();
-            highscorePage.Show();
-            this.Close();
+            OpenHighscorePage();
 
 
         }
@@ -53,12 +54,28 @@ namespace GalagaWPF
             Application.Current.Shutdown();
         }
 
-        public void OpenGameWindow(User session)
+        public void OpenGamePage()
         {
-            GamePage gamePage = new GamePage(session,this);
             this.Hide();
+            if (gamePage == null)
+            {
+                gamePage = new GamePage(this);
+
+            }
+            else { gamePage.Show();}
             
-        }        
+        }
+
+        public void OpenHighscorePage()
+        {
+            this.Hide();
+            highscorePage = new HighscorePage();
+        }
+        public void OpenLoginPage()
+        {
+            this.Hide();
+            loginPage = new LoginPage(this);
+        }
 
     }
 }
