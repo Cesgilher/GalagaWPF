@@ -51,6 +51,7 @@ namespace GalagaWPF
             player.Fill = playerSkin;
 
             myCanvas.Focus();
+            MakeEnemies(36);
 
 
         }
@@ -77,6 +78,58 @@ namespace GalagaWPF
             {
                 EnemyBulletMaker(Canvas.GetLeft(player) + 20, 10);
                 bulletTimer = bulletTimerLimit;
+            }
+
+
+            foreach (var x in myCanvas.Children.OfType<Rectangle>())
+            {    if (x is Rectangle && (string)x.Tag == "bullet")
+                {
+                    Canvas.SetTop(x, Canvas.GetTop(x) - 20);
+
+                    if (Canvas.GetTop(x) < 10)
+                    {
+                        itemsToRemove.Add(x);
+                    }
+
+                    Rect bulletHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                                       
+                }
+                
+                if (x is Rectangle && (string)x.Tag == "enemy")
+                {
+                    Canvas.SetLeft(x, Canvas.GetLeft(x) + enemySpeed);
+
+                    if (Canvas.GetLeft(x) > 800)
+                    {
+                        Canvas.SetLeft(x, -80);
+                        Canvas.SetTop(x, Canvas.GetTop(x) + 80);
+                    }
+
+                    Rect enemyHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+                    if (enemyHitBox.IntersectsWith(new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height)))
+                    {
+                        ShowGameOver("You were killed by an enemy");
+                    }
+                }
+
+                if (x is Rectangle && (string)x.Tag == "enemyBullet")
+                {
+                    Canvas.SetTop(x, Canvas.GetTop(x) + 10);
+
+                    if (Canvas.GetTop(x) > 480)
+                    {
+                        itemsToRemove.Add(x);
+                    }
+
+                    Rect enemyBulletHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+                    if (enemyBulletHitBox.IntersectsWith(new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height)))
+                    {
+                        ShowGameOver("You were killed by an enemy bullet");
+                    }
+                }   
+
             }
         }
 
@@ -109,21 +162,27 @@ namespace GalagaWPF
             }
             if (e.Key == Key.Space)
             {
-                Rectangle newBullet = new Rectangle
-                {
-                    Tag = "bullet",
-                    Height = 20,
-                    Width = 5,
-                    Fill = Brushes.White,
-                    Stroke = Brushes.Red,
-                };
-
-                Canvas.SetTop(newBullet, Canvas.GetTop(player) - newBullet.Height);
-                Canvas.SetLeft(newBullet, Canvas.GetLeft(player) + player.Width / 2);
-
-                myCanvas.Children.Add(newBullet);
+               PlayerBulletMaker();
             }
         }
+
+        private void PlayerBulletMaker()
+        {
+            Rectangle newBullet = new Rectangle
+            {
+                Tag = "bullet",
+                Height = 20,
+                Width = 5,
+                Fill = Brushes.White,
+                Stroke = Brushes.Red,
+                StrokeThickness = 1,
+            };
+
+            Canvas.SetTop(newBullet, Canvas.GetTop(player) - newBullet.Height);
+            Canvas.SetLeft(newBullet, Canvas.GetLeft(player) + player.Width / 2);
+
+            myCanvas.Children.Add(newBullet);
+        }   
 
         private void EnemyBulletMaker(double x, double y)
         {
@@ -176,34 +235,35 @@ namespace GalagaWPF
                 switch (enemyImages)
                 {
                     case 1:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../images/invader1.gif", UriKind.Relative));
+                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader1.gif", UriKind.Relative));
                         break;
                     case 2:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../images/invader2.gif", UriKind.Relative));
+                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader2.gif", UriKind.Relative));
                         break;
                     case 3:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../images/invader3.gif", UriKind.Relative));
+                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader3.gif", UriKind.Relative));
                         break;
                     case 4:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../images/invader4.gif", UriKind.Relative));
+                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader4.gif", UriKind.Relative));
                         break;
                     case 5:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../images/invader5.gif", UriKind.Relative));
+                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader5.gif", UriKind.Relative));
                         break;
                     case 6:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../images/invader6.gif", UriKind.Relative));
+                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader6.gif", UriKind.Relative));
                         break;
                     case 7:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../images/invader7.gif", UriKind.Relative));
+                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader7.gif", UriKind.Relative));
                         break;
                     case 8:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../images/invader8.gif", UriKind.Relative));
+                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader8.gif", UriKind.Relative));
                         break;
+
                 }
             }
         }
 
-        private void ShowGameOverScreen(string msg) { }
+        private void ShowGameOver(string msg) { }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
