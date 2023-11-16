@@ -27,19 +27,50 @@ namespace GalagaWPF
             InitializeComponent();
             
             this.menu = menu;
-            if (UserManager.Instance.GetSession() == null)
-            {
-                // Si session es null, crea y muestra la ventana LoginPage
-                LoginPage loginPage = new LoginPage(menu);
+            this.Show();
+            
            
-                
-            }
-            else
-            {
-                this.Show();
-            }
+        }
 
-           
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                if (escapePanel.Visibility == Visibility.Collapsed)
+                {
+                    escapePanel.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    escapePanel.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void GoToMenu_Click(object sender, RoutedEventArgs e)
+        {
+            // Lógica para ir al menú desde la tabla
+            menu.Show();
+            this.Hide();
+        }
+
+        private void GoToLogin_Click(object sender, RoutedEventArgs e)
+        {
+            // Lógica para ir al juego desde la tabla
+            menu.OpenLoginPage();
+            this.Hide();
+        }
+
+        private void GoToHighscore_Click(object sender, RoutedEventArgs e)
+        {
+            menu.OpenHighscorePage();
+            this.Hide();
+        }
+
+        private void Quit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

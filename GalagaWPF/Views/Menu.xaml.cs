@@ -57,12 +57,15 @@ namespace GalagaWPF
         public void OpenGamePage()
         {
             this.Hide();
-            if (gamePage == null)
+            if (UserManager.Instance.GetSession() == null)
+            {
+                OpenLoginPage();
+            }
+            else if (gamePage == null)
             {
                 gamePage = new GamePage(this);
-
             }
-            else { gamePage.Show();}
+            else {gamePage.Show();}
             
         }
 
