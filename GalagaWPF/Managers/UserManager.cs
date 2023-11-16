@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GalagaWPF.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace GalagaWPF.Controller
 {
     public class UserManager
     {
+
         private List<User> users;
+        private User session;
         private DBContext dB = new DBContext();
 
         public UserManager()

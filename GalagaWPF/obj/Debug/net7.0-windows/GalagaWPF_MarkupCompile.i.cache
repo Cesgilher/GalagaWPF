@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\cesgi\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\
+C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\
 GalagaWPF
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-C:\Users\cesgi\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\App.xaml
+C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\App.xaml
 5585237144
 
 26-835236568
-228291498773
+198-759771931
 Views\GamePage.xaml;Views\HighscorePage.xaml;Views\LoginPage.xaml;Views\Menu.xaml;Views\RegisterPage.xaml;
 
-False
+True
 

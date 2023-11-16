@@ -12,12 +12,11 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\cesgi\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\cehernando\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\cesgi\\.nuget\\packages"
     ],
     "configProperties": {
       "System.Reflection.NullabilityInfoContext.IsSupported": true,
-      "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": true,
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true
     }
   }
