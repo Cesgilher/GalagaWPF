@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -106,7 +107,7 @@ namespace GalagaWPF
                                 itemsToRemove.Add(x);
                                 itemsToRemove.Add(y);
                                 totalEnemies--;
-                                if (totalEnemies == 0)
+                                 if (totalEnemies == 0)
                                 {
                                     ShowGameOver("You win!");
                                 }
@@ -158,7 +159,7 @@ namespace GalagaWPF
                 myCanvas.Children.Remove(i);
             }
 
-            if (totalEnemies == 0)
+            if (totalEnemies < 0)
             {
                 ShowGameOver("Good job you finished this level");
             }
@@ -178,12 +179,7 @@ namespace GalagaWPF
             {
                 PlayerBulletMaker();
             }
-            if (e.Key == Key.Enter && gameOver == true)
-            {
-                GamePage newGame = new GamePage(menu);
-                newGame.Show();
-                this.Close();
-            }
+            
         }
 
 
@@ -199,6 +195,12 @@ namespace GalagaWPF
             if (e.Key == Key.Right)
             {
                 goRight = false;
+            }
+            if (e.Key == Key.Enter && gameOver == true)
+            {
+                GamePage newGame = new GamePage(menu);
+                newGame.Show();
+                this.Close();
             }
             
         }
@@ -300,14 +302,20 @@ namespace GalagaWPF
             }
         }
 
-        private void ShowGameOver(string msg) 
+        private void ShowGameOver(string msg)
         {
             gameOver = true;
             gameTimer.Stop();
             enemiesLeft.Content += " " + msg + " Press Enter to continue playing";
-        
+
         }
 
+
+        
+        
+        
+        
+        //<-Escape panel->//
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
@@ -315,39 +323,40 @@ namespace GalagaWPF
                 if (escapePanel.Visibility == Visibility.Collapsed)
                 {
                     escapePanel.Visibility = Visibility.Visible;
-                    myCanvas.Visibility = Visibility.Collapsed;
+                    gameTimer.Stop();
+                    myCanvas.Visibility = Visibility.Hidden;
+                    escapePanel.Focus();
                 }
                 else
                 {
                     escapePanel.Visibility = Visibility.Collapsed;
                     myCanvas.Visibility = Visibility.Visible;
+                    gameTimer.Start();
+                    myCanvas.Focus();
                 }
             }
         }
-
         private void GoToMenu_Click(object sender, RoutedEventArgs e)
         {
             // Lógica para ir al menú desde la tabla
             menu.Show();
             this.Hide();
         }
-
         private void GoToLogin_Click(object sender, RoutedEventArgs e)
         {
             // Lógica para ir al juego desde la tabla
             menu.OpenLoginPage();
             this.Hide();
         }
-
         private void GoToHighscore_Click(object sender, RoutedEventArgs e)
         {
             menu.OpenHighscorePage();
             this.Hide();
         }
-
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+        //<-------------->//
     }
 }

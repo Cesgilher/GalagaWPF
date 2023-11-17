@@ -226,7 +226,6 @@ C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\Views\HighscorePage.g.cs
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\Views\LoginPage.g.cs
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\Views\Menu.g.cs
-C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\Views\RegisterPage.g.cs
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\App.g.cs
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\GalagaWPF_MarkupCompile.cache
@@ -287,7 +286,6 @@ C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\Views\HighscorePage.baml
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\Views\LoginPage.baml
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\Views\Menu.baml
-C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\Views\RegisterPage.baml
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\GalagaWPF.g.resources
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\GalagaWPF.Properties.Resources.resources
 C:\Users\cehernando\Source\Repos\Cesgilher\GalagaWPF\GalagaWPF\obj\Debug\net7.0-windows\GalagaWPF.csproj.GenerateResource.cache
