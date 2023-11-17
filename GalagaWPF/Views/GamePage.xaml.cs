@@ -62,6 +62,8 @@ namespace GalagaWPF
 
         private void GameLoop(object? sender, EventArgs e)
         {
+            Rect playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height);
+            enemiesLeft.Content = "Enemies left: " + totalEnemies;
 
             if (goLeft == true && Canvas.GetLeft(player) > 0)
             {
@@ -92,6 +94,25 @@ namespace GalagaWPF
                     }
 
                     Rect bulletHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+                    foreach (var y in myCanvas.Children.OfType<Rectangle>())
+                    {
+                        if (y is Rectangle && (string)y.Tag == "enemy")
+                        {
+                            Rect enemyHit = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
+
+                            if (bulletHitBox.IntersectsWith(enemyHit))
+                            {
+                                itemsToRemove.Add(x);
+                                itemsToRemove.Add(y);
+                                totalEnemies--;
+                                if (totalEnemies == 0)
+                                {
+                                    ShowGameOver("You win!");
+                                }
+                            }
+                        }
+                    }   
                                        
                 }
                 
@@ -102,14 +123,14 @@ namespace GalagaWPF
                     if (Canvas.GetLeft(x) > 800)
                     {
                         Canvas.SetLeft(x, -80);
-                        Canvas.SetTop(x, Canvas.GetTop(x) + 80);
+                        Canvas.SetTop(x, Canvas.GetTop(x) + (x.Height +10));
                     }
 
                     Rect enemyHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
 
-                    if (enemyHitBox.IntersectsWith(new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height)))
+                    if (playerHitBox.IntersectsWith(enemyHitBox))
                     {
-                        ShowGameOver("You were killed by an enemy");
+                        ShowGameOver("You were killed by an alien");
                     }
                 }
 
@@ -124,12 +145,22 @@ namespace GalagaWPF
 
                     Rect enemyBulletHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
 
-                    if (enemyBulletHitBox.IntersectsWith(new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height)))
+                    if (playerHitBox.IntersectsWith(enemyBulletHitBox))
                     {
-                        ShowGameOver("You were killed by an enemy bullet");
+                        ShowGameOver("You were killed by an alien bullet");
                     }
                 }   
 
+            }
+
+            foreach (Rectangle i in itemsToRemove)
+            {
+                myCanvas.Children.Remove(i);
+            }
+
+            if (totalEnemies == 0)
+            {
+                ShowGameOver("Good job you finished this level");
             }
         }
 
@@ -143,7 +174,16 @@ namespace GalagaWPF
             {
                 goRight = true;
             }
-            
+            if (e.Key == Key.Space)
+            {
+                PlayerBulletMaker();
+            }
+            if (e.Key == Key.Enter && gameOver == true)
+            {
+                GamePage newGame = new GamePage(menu);
+                newGame.Show();
+                this.Close();
+            }
         }
 
 
@@ -160,10 +200,7 @@ namespace GalagaWPF
             {
                 goRight = false;
             }
-            if (e.Key == Key.Space)
-            {
-               PlayerBulletMaker();
-            }
+            
         }
 
         private void PlayerBulletMaker()
@@ -223,7 +260,7 @@ namespace GalagaWPF
                     Fill = enemySkin,
                 };
 
-                Canvas.SetTop(newEnemy, 10); 
+                Canvas.SetTop(newEnemy, 30); 
                 Canvas.SetLeft(newEnemy, left);
                 myCanvas.Children.Add(newEnemy);
                 left -= 60;
@@ -263,7 +300,13 @@ namespace GalagaWPF
             }
         }
 
-        private void ShowGameOver(string msg) { }
+        private void ShowGameOver(string msg) 
+        {
+            gameOver = true;
+            gameTimer.Stop();
+            enemiesLeft.Content += " " + msg + " Press Enter to continue playing";
+        
+        }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {

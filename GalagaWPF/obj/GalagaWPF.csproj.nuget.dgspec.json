@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cehernando\\source\\repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj": {}
+    "C:\\Users\\cehernando\\Source\\Repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cehernando\\source\\repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj": {
+    "C:\\Users\\cehernando\\Source\\Repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cehernando\\source\\repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj",
+        "projectUniqueName": "C:\\Users\\cehernando\\Source\\Repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj",
         "projectName": "GalagaWPF",
-        "projectPath": "C:\\Users\\cehernando\\source\\repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj",
+        "projectPath": "C:\\Users\\cehernando\\Source\\Repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\GalagaWPF.csproj",
         "packagesPath": "C:\\Users\\cehernando\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cehernando\\source\\repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\obj\\",
+        "outputPath": "C:\\Users\\cehernando\\Source\\Repos\\Cesgilher\\GalagaWPF\\GalagaWPF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
