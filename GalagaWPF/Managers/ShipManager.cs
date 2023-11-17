@@ -13,7 +13,12 @@ namespace GalagaWPF.Controller
     {
 
 
-
+        public static ImageBrush CreatePlayerShip()
+        {
+            ImageBrush playerSkin = new ImageBrush();
+            playerSkin.ImageSource = new BitmapImage(new Uri("../../../Resources/player.png", UriKind.Relative));
+            return playerSkin;
+        }
         public static List<Rectangle> CreateEnemies(int limit)
         {
             List<Rectangle> enemies = new List<Rectangle>();

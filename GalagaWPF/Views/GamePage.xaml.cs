@@ -27,9 +27,10 @@ namespace GalagaWPF
 
         bool goLeft, goRight;
 
-        List<Rectangle> itemsToRemove = new List<Rectangle>();
+        private List<Rectangle> itemsToRemove = new List<Rectangle>();
+        private List<Rectangle> enemies = new List<Rectangle>();
 
-        int enemyImages = 0;
+
         int bulletTimer = 0;
         int bulletTimerLimit = 90;
         int totalEnemies = 0;
@@ -37,7 +38,6 @@ namespace GalagaWPF
         bool gameOver = false;
 
         DispatcherTimer gameTimer = new DispatcherTimer();
-        ImageBrush playerSkin = new ImageBrush();
         public GamePage(Menu menu)
         {
             InitializeComponent();
@@ -48,8 +48,8 @@ namespace GalagaWPF
             gameTimer.Tick += GameLoop;
             gameTimer.Interval = TimeSpan.FromMilliseconds(20);
             gameTimer.Start();
-            playerSkin.ImageSource = new BitmapImage(new Uri("../../../Resources/player.png", UriKind.Relative));
-            player.Fill = playerSkin;
+            
+            player.Fill = ShipManager.CreatePlayerShip();
 
             myCanvas.Focus();
             AddEnemies(36);
@@ -66,26 +66,14 @@ namespace GalagaWPF
             Rect playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height);
             enemiesLeft.Content = "Enemies left: " + totalEnemies;
 
-            if (goLeft == true && Canvas.GetLeft(player) > 0)
-            {
-                Canvas.SetLeft(player, Canvas.GetLeft(player) - 10);
-            }
-            if (goRight == true && Canvas.GetLeft(player) + 80 < Application.Current.MainWindow.Width)
-            {
-                Canvas.SetLeft(player, Canvas.GetLeft(player) + 10);
-            }
+            UpdatePlayerPosition();
 
             bulletTimer -= 3;
 
-            if (bulletTimer < 0)
-            {
-                myCanvas.Children.Add(ProjectileManager.EnemyBulletMaker(Canvas.GetLeft(player) + 20, 10));
-                bulletTimer = bulletTimerLimit;
-            }
-
+            UpdatePlayerShot();
 
             foreach (var x in myCanvas.Children.OfType<Rectangle>())
-            {    if (x is Rectangle && (string)x.Tag == "bullet")
+            {    if ((string)x.Tag == "bullet")
                 {
                     Canvas.SetTop(x, Canvas.GetTop(x) - 20);
 
@@ -98,7 +86,7 @@ namespace GalagaWPF
 
                     foreach (var y in myCanvas.Children.OfType<Rectangle>())
                     {
-                        if (y is Rectangle && (string)y.Tag == "enemy")
+                        if ((string)y.Tag == "enemy")
                         {
                             Rect enemyHit = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
 
@@ -117,7 +105,7 @@ namespace GalagaWPF
                                        
                 }
                 
-                if (x is Rectangle && (string)x.Tag == "enemy")
+                if ((string)x.Tag == "enemy")
                 {
                     Canvas.SetLeft(x, Canvas.GetLeft(x) + enemySpeed);
 
@@ -135,7 +123,7 @@ namespace GalagaWPF
                     }
                 }
 
-                if (x is Rectangle && (string)x.Tag == "enemyBullet")
+                if ((string)x.Tag == "enemyBullet")
                 {
                     Canvas.SetTop(x, Canvas.GetTop(x) + 10);
 
@@ -162,6 +150,27 @@ namespace GalagaWPF
             if (totalEnemies < 0)
             {
                 ShowGameOver("Good job you finished this level");
+            }
+        }
+
+        private void UpdatePlayerShot()
+        {
+            if (bulletTimer < 0)
+            {
+                myCanvas.Children.Add(ProjectileManager.EnemyBulletMaker(Canvas.GetLeft(player) + 20, 10));
+                bulletTimer = bulletTimerLimit;
+            }
+        }
+
+        private void UpdatePlayerPosition()
+        {
+            if (goLeft == true && Canvas.GetLeft(player) > 0)
+            {
+                Canvas.SetLeft(player, Canvas.GetLeft(player) - 10);
+            }
+            if (goRight == true && Canvas.GetLeft(player) + 80 < Application.Current.MainWindow.Width)
+            {
+                Canvas.SetLeft(player, Canvas.GetLeft(player) + 10);
             }
         }
 
@@ -211,7 +220,7 @@ namespace GalagaWPF
 
         private void AddEnemies(int limit)
         {
-            List<Rectangle> enemies = ShipManager.CreateEnemies(limit);
+            enemies = ShipManager.CreateEnemies(limit);
 
             foreach (Rectangle enemy in enemies)
             {
