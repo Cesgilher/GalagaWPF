@@ -52,7 +52,7 @@ namespace GalagaWPF
             player.Fill = playerSkin;
 
             myCanvas.Focus();
-            MakeEnemies(36);
+            AddEnemies(36);
 
 
         }
@@ -79,7 +79,7 @@ namespace GalagaWPF
 
             if (bulletTimer < 0)
             {
-                EnemyBulletMaker(Canvas.GetLeft(player) + 20, 10);
+                myCanvas.Children.Add(ProjectileManager.EnemyBulletMaker(Canvas.GetLeft(player) + 20, 10));
                 bulletTimer = bulletTimerLimit;
             }
 
@@ -177,7 +177,7 @@ namespace GalagaWPF
             }
             if (e.Key == Key.Space)
             {
-                PlayerBulletMaker();
+                myCanvas.Children.Add(ProjectileManager.PlayerBulletMaker(Canvas.GetTop(player), Canvas.GetLeft(player), player.Width));
             }
             
         }
@@ -205,101 +205,20 @@ namespace GalagaWPF
             
         }
 
-        private void PlayerBulletMaker()
+
+
+
+
+        private void AddEnemies(int limit)
         {
-            Rectangle newBullet = new Rectangle
+            List<Rectangle> enemies = ShipManager.CreateEnemies(limit);
+
+            foreach (Rectangle enemy in enemies)
             {
-                Tag = "bullet",
-                Height = 20,
-                Width = 5,
-                Fill = Brushes.White,
-                Stroke = Brushes.Red,
-                StrokeThickness = 1,
-            };
-
-            Canvas.SetTop(newBullet, Canvas.GetTop(player) - newBullet.Height);
-            Canvas.SetLeft(newBullet, Canvas.GetLeft(player) + player.Width / 2);
-
-            myCanvas.Children.Add(newBullet);
-        }   
-
-        private void EnemyBulletMaker(double x, double y)
-        {
-            Rectangle enemyBullet = new Rectangle
-            {
-                Tag = "enemyBullet",
-                Height = 40,
-                Width = 15,
-                Fill = Brushes.Yellow,
-                Stroke = Brushes.Black,
-                StrokeThickness = 5,
-
-            };
-
-            Canvas.SetTop(enemyBullet, y);
-            Canvas.SetLeft(enemyBullet, x);
-
-            myCanvas.Children.Add(enemyBullet);
-
-
-        }
-
-        private void MakeEnemies(int limit)
-        {
-            int left = 0;
+                myCanvas.Children.Add(enemy);
+            }
 
             totalEnemies = limit;
-
-            for (int i = 0; i < limit; i++)
-            {
-                ImageBrush enemySkin = new ImageBrush();
-
-                Rectangle newEnemy = new Rectangle
-                {
-                    Tag = "enemy",
-                    Height = 45,
-                    Width = 45,
-                    Fill = enemySkin,
-                };
-
-                Canvas.SetTop(newEnemy, 30); 
-                Canvas.SetLeft(newEnemy, left);
-                myCanvas.Children.Add(newEnemy);
-                left -= 60;
-                enemyImages++;
-                if (enemyImages > 8)
-                {
-                    enemyImages = 1;
-                }
-                switch (enemyImages)
-                {
-                    case 1:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader1.gif", UriKind.Relative));
-                        break;
-                    case 2:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader2.gif", UriKind.Relative));
-                        break;
-                    case 3:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader3.gif", UriKind.Relative));
-                        break;
-                    case 4:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader4.gif", UriKind.Relative));
-                        break;
-                    case 5:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader5.gif", UriKind.Relative));
-                        break;
-                    case 6:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader6.gif", UriKind.Relative));
-                        break;
-                    case 7:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader7.gif", UriKind.Relative));
-                        break;
-                    case 8:
-                        enemySkin.ImageSource = new BitmapImage(new Uri("../../../Resources/invader8.gif", UriKind.Relative));
-                        break;
-
-                }
-            }
         }
 
         private void ShowGameOver(string msg)
@@ -312,6 +231,30 @@ namespace GalagaWPF
 
 
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
         
         
