@@ -107,7 +107,7 @@ namespace GalagaWPF
                     escapePanel.Visibility = Visibility.Collapsed;
                 }
             }
-        }//falta por testear
+        }
 
         private void GoToMenu_Click(object sender, RoutedEventArgs e)
         {

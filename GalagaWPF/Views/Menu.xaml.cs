@@ -21,10 +21,6 @@ namespace GalagaWPF
     public partial class Menu : Window
     {
         private GamePage gamePage;
-
-        private HighscorePage highscorePage;
-
-        private LoginPage loginPage;
         public Menu()
         {
             InitializeComponent();          
@@ -72,12 +68,12 @@ namespace GalagaWPF
         public void OpenHighscorePage()
         {
             this.Hide();
-            highscorePage = new HighscorePage(this);
+            HighscorePage highscorePage = new(this);
         }
         public void OpenLoginPage()
         {
             this.Hide();
-            loginPage = new LoginPage(this);
+            LoginPage loginPage = new(this);
         }
 
     }

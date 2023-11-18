@@ -55,57 +55,20 @@ namespace GalagaWPF
 
 
         }
-
-        private void InitGame()
+        //Game logic//
+        private void ClearScreen()
         {
-            punctuation = 0;
-            level = 0;
-            enemySpeed = 6;
-            enemyLimit = 6;
-            levelOver = false;
-           
-            player.Fill = ShipManager.CreatePlayerShip();
-            itemsToRemove = new List<Rectangle>();
-            enemies = new List<Rectangle>();
-            InitLevel();
+            foreach (var item in myCanvas.Children.OfType<Rectangle>().ToList())
+            {
+                myCanvas.Children.Remove(item);
+            }
         }
-        private async void InitLevel()
-        {
-            ClearScreen();
-            ResetPlayerShip();
-
-            level++;
-            enemyLimit += 2;
-            enemySpeed += level % 2 == 1 ? 1 : 0;
-
-            levelLabel.Content = "Level: " + level;
-            AddEnemies(enemyLimit);
-            await ShowBeginMsg();
-            gameTimer = new DispatcherTimer();
-            gameTimer.Tick += GameLoop;
-            gameTimer.Interval = TimeSpan.FromMilliseconds(20);
-            gameTimer.Start();
-        }
-
         private void ResetPlayerShip()
         {
             myCanvas.Children.Add(player);
             Canvas.SetLeft(player, 370);
             Canvas.SetTop(player, 409);
         }
-
-        private async Task ShowBeginMsg()
-        {
-            countdownMessage.Visibility = Visibility.Visible;
-
-            for (int i = 3; i > 0; i--)
-            {
-                countdownMessage.Text = i.ToString();
-                await Task.Delay(1000);
-            }
-            countdownMessage.Visibility = Visibility.Collapsed;
-        }
-
         private void AddEnemies(int limit)
         {
             enemies = ShipManager.CreateEnemies(limit);
@@ -119,6 +82,24 @@ namespace GalagaWPF
 
 
         }
+        private async Task ShowBeginMsg()
+        {
+            countdownMessage.Visibility = Visibility.Visible;
+
+            for (int i = 3; i > 0; i--)
+            {
+                countdownMessage.Text = i.ToString();
+                await Task.Delay(1000);
+            }
+            countdownMessage.Visibility = Visibility.Collapsed;
+        }
+        private void RemoveItems()
+        {
+            foreach (Rectangle i in itemsToRemove)
+            {
+                myCanvas.Children.Remove(i);
+            }
+        }
         private void ShowLevelOver(string msg)
         {
             levelOver = true;
@@ -130,105 +111,32 @@ namespace GalagaWPF
             }
             else
             {
-                SaveScore()
+                SaveScore();
                 gameTimer.Stop();
                 enemiesLabel.Content = " " + msg + " Press Enter to restart";
             }
-            
-            
+
+
 
 
         }
-
-        private void SaveScore()
+        private void UpdatePlayerPosition()
         {
-            Score score = new Score(UserManager.Instance.GetSession().Id, punctuation, level);
-
-            scoreboard.SaveScore(score);
-            
-        }
-
-        private void GameLoop(object? sender, EventArgs e)
-        {
-            playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height);
-            enemiesLabel.Content = "Enemies left: " + totalEnemies;
-            scoreLabel.Content = "Score: " + punctuation;
-            
-            UpdatePlayerPosition();
-
-            bulletTimer -= 3;
-
-            UpdatePlayerShot();
-
-            foreach (var x in myCanvas.Children.OfType<Rectangle>())
-            {   
-                if ((string)x.Tag == "bullet")
-                {
-                   UpdatePlayerBullet(x);
-                }
-                if ((string)x.Tag == "enemy")
-                {
-                    UpdateEnemy(x);
-                }
-                if ((string)x.Tag == "enemyBullet")
-                {
-                    UpdateEnemyBullet(x);
-                }
-
-            }
-
-            RemoveItems();
-
-            if (totalEnemies < 1)
+            if (goLeft == true && Canvas.GetLeft(player) > 0)
             {
-                ShowLevelOver("Good job you finished this level");
+                Canvas.SetLeft(player, Canvas.GetLeft(player) - 10);
+            }
+            if (goRight == true && Canvas.GetLeft(player) + 80 < Application.Current.MainWindow.Width)
+            {
+                Canvas.SetLeft(player, Canvas.GetLeft(player) + 10);
             }
         }
-
-        private void RemoveItems()
+        private void UpdatePlayerShot()
         {
-            foreach (Rectangle i in itemsToRemove)
+            if (bulletTimer < 0)
             {
-                myCanvas.Children.Remove(i);
-            }
-        }
-
-
-        private void UpdatePlayerBullet(Rectangle bullet) 
-        {
-            Canvas.SetTop(bullet, Canvas.GetTop(bullet) - 20);
-
-            if (Canvas.GetTop(bullet) < 10)
-            {
-                itemsToRemove.Add(bullet);
-            }
-
-            foreach (var y in myCanvas.Children.OfType<Rectangle>())
-            {
-                if ((string)y.Tag == "enemy")
-                {
-                    CheckBulletHitEnemy(bullet, y);
-                }
-            }
-
-
-        }
-
-        private void CheckBulletHitEnemy(Rectangle bullet, Rectangle enemy)
-        {
-            if ((string)enemy.Tag == "enemy") // Verifica si el enemigo no ha sido eliminado
-            {
-                Rect bulletHitBox = new Rect(Canvas.GetLeft(bullet), Canvas.GetTop(bullet), bullet.Width, bullet.Height);
-                Rect enemyHit = new Rect(Canvas.GetLeft(enemy), Canvas.GetTop(enemy), enemy.Width, enemy.Height);
-
-                if (bulletHitBox.IntersectsWith(enemyHit))
-                {
-                    itemsToRemove.Add(bullet);
-                    itemsToRemove.Add(enemy);
-                    totalEnemies--;
-                    punctuation++;
-                    enemy.Tag = "dead";
-                }
+                myCanvas.Children.Add(ProjectileManager.EnemyBulletMaker(Canvas.GetLeft(player) + 20, 10));
+                bulletTimer = bulletTimerLimit;
             }
         }
         private void UpdateEnemyBullet(Rectangle enemyBullet)
@@ -264,25 +172,119 @@ namespace GalagaWPF
                 ShowLevelOver("You were killed by an alien");
             }
         }
-        private void UpdatePlayerShot()
+        private void CheckBulletHitEnemy(Rectangle bullet, Rectangle enemy)
         {
-            if (bulletTimer < 0)
+            if ((string)enemy.Tag == "enemy") // Verifica si el enemigo no ha sido eliminado
             {
-                myCanvas.Children.Add(ProjectileManager.EnemyBulletMaker(Canvas.GetLeft(player) + 20, 10));
-                bulletTimer = bulletTimerLimit;
+                Rect bulletHitBox = new Rect(Canvas.GetLeft(bullet), Canvas.GetTop(bullet), bullet.Width, bullet.Height);
+                Rect enemyHit = new Rect(Canvas.GetLeft(enemy), Canvas.GetTop(enemy), enemy.Width, enemy.Height);
+
+                if (bulletHitBox.IntersectsWith(enemyHit))
+                {
+                    itemsToRemove.Add(bullet);
+                    itemsToRemove.Add(enemy);
+                    totalEnemies--;
+                    punctuation++;
+                    enemy.Tag = "dead";
+                }
             }
         }
-        private void UpdatePlayerPosition()
+        private void UpdatePlayerBullet(Rectangle bullet)
         {
-            if (goLeft == true && Canvas.GetLeft(player) > 0)
+            Canvas.SetTop(bullet, Canvas.GetTop(bullet) - 20);
+
+            if (Canvas.GetTop(bullet) < 10)
             {
-                Canvas.SetLeft(player, Canvas.GetLeft(player) - 10);
+                itemsToRemove.Add(bullet);
             }
-            if (goRight == true && Canvas.GetLeft(player) + 80 < Application.Current.MainWindow.Width)
+
+            foreach (var y in myCanvas.Children.OfType<Rectangle>())
             {
-                Canvas.SetLeft(player, Canvas.GetLeft(player) + 10);
+                if ((string)y.Tag == "enemy")
+                {
+                    CheckBulletHitEnemy(bullet, y);
+                }
+            }
+
+
+        }
+        private void GameLoop(object? sender, EventArgs e)
+        {
+            playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height);
+            enemiesLabel.Content = "Enemies left: " + totalEnemies;
+            scoreLabel.Content = "Score: " + punctuation;
+
+            UpdatePlayerPosition();
+
+            bulletTimer -= 3;
+
+            UpdatePlayerShot();
+
+            foreach (var x in myCanvas.Children.OfType<Rectangle>())
+            {
+                if ((string)x.Tag == "bullet")
+                {
+                    UpdatePlayerBullet(x);
+                }
+                if ((string)x.Tag == "enemy")
+                {
+                    UpdateEnemy(x);
+                }
+                if ((string)x.Tag == "enemyBullet")
+                {
+                    UpdateEnemyBullet(x);
+                }
+
+            }
+
+            RemoveItems();
+
+            if (totalEnemies < 1)
+            {
+                ShowLevelOver("Good job you finished this level");
             }
         }
+        private async void InitLevel()
+        {
+            ClearScreen();
+            ResetPlayerShip();
+
+            level++;
+            enemyLimit += 2;
+            enemySpeed += level % 2 == 1 ? 1 : 0;
+
+            levelLabel.Content = "Level: " + level;
+            AddEnemies(enemyLimit);
+            await ShowBeginMsg();
+            gameTimer = new DispatcherTimer();
+            gameTimer.Tick += GameLoop;
+            gameTimer.Interval = TimeSpan.FromMilliseconds(20);
+            gameTimer.Start();
+        }
+        private void InitGame()
+        {
+            punctuation = 0;
+            level = 0;
+            enemySpeed = 6;
+            enemyLimit = 6;
+            levelOver = false;
+
+            player.Fill = ShipManager.CreatePlayerShip();
+            itemsToRemove = new List<Rectangle>();
+            enemies = new List<Rectangle>();
+            InitLevel();
+        }
+        private void SaveScore()
+        {
+            Score score = new Score(UserManager.Instance.GetSession().Id, punctuation, level);
+
+            scoreboard.SaveScore(score);
+
+        }
+        //End game logic//  
+        
+        
+        //Key events//
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left)
@@ -323,15 +325,11 @@ namespace GalagaWPF
             }
 
         }
-        private void ClearScreen()
-        {
-            foreach (var item in myCanvas.Children.OfType<Rectangle>().ToList())
-            {
-                myCanvas.Children.Remove(item);
-            }
-        }
+        //End Key events//
 
-        //<-Escape panel->//
+       
+        
+        //Escape panel//
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
@@ -373,6 +371,6 @@ namespace GalagaWPF
         {
             Application.Current.Shutdown();
         }
-        //<-------------->//
+        //End Escape panel//
     }
 }

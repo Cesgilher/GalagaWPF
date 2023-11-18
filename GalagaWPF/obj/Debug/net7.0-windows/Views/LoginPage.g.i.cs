@@ -125,7 +125,7 @@ namespace GalagaWPF {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GalagaWPF;component/views/loginpage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GalagaWPF;V1.0.0.0;component/views/loginpage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\LoginPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -7,21 +7,12 @@ using GalagaWPF.Models;
 
 namespace GalagaWPF.Controller
 {
-    public class Scoreboard : IDisposable
+    public class Scoreboard
     {
         private List<Score> scores = new();
         private DBContext db = new DBContext();
 
-        public Scoreboard()
-        {
-            
-        }
-
-
-        
-        
-
-        public void SafeScore(Score score)
+        public void SaveScore(Score score)
         {
             scores = db.Scores.ToList();
             bool allPointsLower = scores
@@ -55,12 +46,7 @@ namespace GalagaWPF.Controller
 
         }
 
-        public void Dispose()
-        {
-            SafeScores();
-
-            GC.SuppressFinalize(this);
-        }
+        
 
 
 
