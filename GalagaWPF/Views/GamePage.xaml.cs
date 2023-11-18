@@ -23,49 +23,49 @@ namespace GalagaWPF
     /// </summary>
     public partial class GamePage : Window
     {
-        Menu menu;
+        internal Menu menu;
 
-        bool goLeft, goRight;
+        internal bool goLeft, goRight;
 
-        private List<Rectangle> itemsToRemove = new List<Rectangle>();
-        private List<Rectangle> enemies = new List<Rectangle>();
+        internal List<Rectangle> itemsToRemove = new List<Rectangle>();
+        internal List<Rectangle> enemies = new List<Rectangle>();
+
+        internal Rect playerHitBox;
 
 
-        int bulletTimer = 0;
-        int bulletTimerLimit = 90;
-        int totalEnemies = 0;
-        int enemySpeed = 6;
-        bool gameOver = false;
+        internal int bulletTimer = 0;
+        internal int bulletTimerLimit = 90;
+        internal int totalEnemies = 0;
+        internal int enemySpeed = 6;
+        internal bool gameOver = false;
 
-        DispatcherTimer gameTimer = new DispatcherTimer();
+        internal DispatcherTimer gameTimer = new DispatcherTimer();
         public GamePage(Menu menu)
         {
             InitializeComponent();
-            
+
             this.menu = menu;
             this.Show();
 
-            gameTimer.Tick += GameLoop;
-            gameTimer.Interval = TimeSpan.FromMilliseconds(20);
-            gameTimer.Start();
-            
-            player.Fill = ShipManager.CreatePlayerShip();
+            InitializeGameAsync();
 
-            myCanvas.Focus();
-            AddEnemies(36);
+
+
+
+
 
 
         }
 
-        
 
-        
+
+
 
         private void GameLoop(object? sender, EventArgs e)
         {
-            Rect playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height);
+            playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height);
             enemiesLeft.Content = "Enemies left: " + totalEnemies;
-
+            
             UpdatePlayerPosition();
 
             bulletTimer -= 3;
@@ -73,86 +73,109 @@ namespace GalagaWPF
             UpdatePlayerShot();
 
             foreach (var x in myCanvas.Children.OfType<Rectangle>())
-            {    if ((string)x.Tag == "bullet")
+            {   
+                if ((string)x.Tag == "bullet")
                 {
-                    Canvas.SetTop(x, Canvas.GetTop(x) - 20);
-
-                    if (Canvas.GetTop(x) < 10)
-                    {
-                        itemsToRemove.Add(x);
-                    }
-
-                    Rect bulletHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-                    foreach (var y in myCanvas.Children.OfType<Rectangle>())
-                    {
-                        if ((string)y.Tag == "enemy")
-                        {
-                            Rect enemyHit = new Rect(Canvas.GetLeft(y), Canvas.GetTop(y), y.Width, y.Height);
-
-                            if (bulletHitBox.IntersectsWith(enemyHit))
-                            {
-                                itemsToRemove.Add(x);
-                                itemsToRemove.Add(y);
-                                totalEnemies--;
-                                 if (totalEnemies == 0)
-                                {
-                                    ShowGameOver("You win!");
-                                }
-                            }
-                        }
-                    }   
-                                       
+                   UpdatePlayerBullet(x);
                 }
-                
                 if ((string)x.Tag == "enemy")
                 {
-                    Canvas.SetLeft(x, Canvas.GetLeft(x) + enemySpeed);
-
-                    if (Canvas.GetLeft(x) > 800)
-                    {
-                        Canvas.SetLeft(x, -80);
-                        Canvas.SetTop(x, Canvas.GetTop(x) + (x.Height +10));
-                    }
-
-                    Rect enemyHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-                    if (playerHitBox.IntersectsWith(enemyHitBox))
-                    {
-                        ShowGameOver("You were killed by an alien");
-                    }
+                    UpdateEnemy(x);
                 }
-
                 if ((string)x.Tag == "enemyBullet")
                 {
-                    Canvas.SetTop(x, Canvas.GetTop(x) + 10);
-
-                    if (Canvas.GetTop(x) > 480)
-                    {
-                        itemsToRemove.Add(x);
-                    }
-
-                    Rect enemyBulletHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-
-                    if (playerHitBox.IntersectsWith(enemyBulletHitBox))
-                    {
-                        ShowGameOver("You were killed by an alien bullet");
-                    }
-                }   
+                    UpdateEnemyBullet(x);
+                }
 
             }
 
-            foreach (Rectangle i in itemsToRemove)
-            {
-                myCanvas.Children.Remove(i);
-            }
+            RemoveItems();
 
-            if (totalEnemies < 0)
+            if (totalEnemies < 1)
             {
                 ShowGameOver("Good job you finished this level");
             }
         }
 
+        private void RemoveItems()
+        {
+            foreach (Rectangle i in itemsToRemove)
+            {
+                myCanvas.Children.Remove(i);
+            }
+        }
+
+
+        private void UpdatePlayerBullet(Rectangle bullet) 
+        {
+            Canvas.SetTop(bullet, Canvas.GetTop(bullet) - 20);
+
+            if (Canvas.GetTop(bullet) < 10)
+            {
+                itemsToRemove.Add(bullet);
+            }
+
+            foreach (var y in myCanvas.Children.OfType<Rectangle>())
+            {
+                if ((string)y.Tag == "enemy")
+                {
+                    CheckBulletHitEnemy(bullet, y);
+                }
+            }
+
+
+        }
+
+        private void CheckBulletHitEnemy(Rectangle bullet, Rectangle enemy)
+        {
+            Rect bulletHitBox = new Rect(Canvas.GetLeft(bullet), Canvas.GetTop(bullet), bullet.Width, bullet.Height);
+            Rect enemyHit = new Rect(Canvas.GetLeft(enemy), Canvas.GetTop(enemy), enemy.Width, enemy.Height);
+
+            if (bulletHitBox.IntersectsWith(enemyHit))
+            {
+                itemsToRemove.Add(bullet);
+                itemsToRemove.Add(enemy);
+                totalEnemies--;
+
+                if (totalEnemies == 0)
+                {
+                    ShowGameOver("You win!");
+                }
+            }
+        }
+        private void UpdateEnemyBullet(Rectangle enemyBullet)
+        {
+            Canvas.SetTop(enemyBullet, Canvas.GetTop(enemyBullet) + 10);
+
+            if (Canvas.GetTop(enemyBullet) > 480)
+            {
+                itemsToRemove.Add(enemyBullet);
+            }
+
+            Rect enemyBulletHitBox = new Rect(Canvas.GetLeft(enemyBullet), Canvas.GetTop(enemyBullet), enemyBullet.Width, enemyBullet.Height);
+
+            if (playerHitBox.IntersectsWith(enemyBulletHitBox))
+            {
+                ShowGameOver("You were killed by an alien bullet");
+            }
+        }
+        private void UpdateEnemy(Rectangle enemy)
+        {
+            Canvas.SetLeft(enemy, Canvas.GetLeft(enemy) + enemySpeed);
+
+            if (Canvas.GetLeft(enemy) > 800)
+            {
+                Canvas.SetLeft(enemy, -80);
+                Canvas.SetTop(enemy, Canvas.GetTop(enemy) + (enemy.Height + 10));
+            }
+
+            Rect enemyHitBox = new Rect(Canvas.GetLeft(enemy), Canvas.GetTop(enemy), enemy.Width, enemy.Height);
+
+            if (playerHitBox.IntersectsWith(enemyHitBox))
+            {
+                ShowGameOver("You were killed by an alien");
+            }
+        }
         private void UpdatePlayerShot()
         {
             if (bulletTimer < 0)
@@ -161,7 +184,6 @@ namespace GalagaWPF
                 bulletTimer = bulletTimerLimit;
             }
         }
-
         private void UpdatePlayerPosition()
         {
             if (goLeft == true && Canvas.GetLeft(player) > 0)
@@ -173,7 +195,9 @@ namespace GalagaWPF
                 Canvas.SetLeft(player, Canvas.GetLeft(player) + 10);
             }
         }
-
+        
+        
+        
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left)
@@ -188,12 +212,12 @@ namespace GalagaWPF
             {
                 myCanvas.Children.Add(ProjectileManager.PlayerBulletMaker(Canvas.GetTop(player), Canvas.GetLeft(player), player.Width));
             }
-            
+
         }
 
 
 
-        
+
 
         private void KeyIsUp(object sender, KeyEventArgs e)
         {
@@ -211,15 +235,27 @@ namespace GalagaWPF
                 newGame.Show();
                 this.Close();
             }
-            
+
         }
 
 
-
-
-
-        private void AddEnemies(int limit)
+        private async void InitializeGameAsync()
         {
+            myCanvas.Focus();
+            player.Fill = ShipManager.CreatePlayerShip();
+
+            // Espera a que se completen la creación de enemigos
+            AddEnemiesAsync(36);
+
+            // Inicia el temporizador del juego después de que todos los enemigos se hayan creado
+            gameTimer.Tick += GameLoop;
+            gameTimer.Interval = TimeSpan.FromMilliseconds(20);
+            gameTimer.Start();
+        }
+
+
+        private void AddEnemiesAsync(int limit)
+        { 
             enemies = ShipManager.CreateEnemies(limit);
 
             foreach (Rectangle enemy in enemies)
@@ -228,18 +264,18 @@ namespace GalagaWPF
             }
 
             totalEnemies = limit;
-        }
 
+           
+        }
         private void ShowGameOver(string msg)
         {
             gameOver = true;
             gameTimer.Stop();
-            enemiesLeft.Content += " " + msg + " Press Enter to continue playing";
+            enemiesLeft.Content = " " + msg + " Press Enter to continue playing";
 
         }
 
 
-        
 
 
 
@@ -263,10 +299,18 @@ namespace GalagaWPF
 
 
 
+        //for (int i = 3; i > 0; i--)
+        //{
+        //    countdownMessage.Text = i.ToString();
+        //    await Task.Delay(1000);
+        //}
 
-        
-        
-        
+        //countdownMessage.Visibility = Visibility.Collapsed;
+
+
+
+
+
         //<-Escape panel->//
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
