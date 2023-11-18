@@ -9,7 +9,9 @@
         Title="GamePage" Height="500" Width="800">
     <Grid>
         <Canvas x:Name="myCanvas" Focusable="True" Background="Black" KeyDown="KeyIsDown" KeyUp="KeyIsUp">
-            <Label Name="enemiesLeft" Foreground="White" FontSize="16" FontWeight="ExtraBold">Enemies left: 0</Label>
+            <Label Name="enemiesLabel" Foreground="White" FontSize="16" FontWeight="ExtraBold">Enemies left: 0</Label>
+            <Label Name="scoreLabel" Foreground="White" FontSize="16" FontWeight="ExtraBold" HorizontalAlignment="Left" Canvas.Left="364" VerticalAlignment="Center">Score: 0</Label>
+            <Label Name="levelLabel" Foreground="White" FontSize="16" FontWeight="ExtraBold" HorizontalAlignment="Left" Canvas.Left="674" VerticalAlignment="Center">Level: 0</Label>
             <Rectangle x:Name="player" Fill="White" Height="65" Width="55" Canvas.Left="387" Canvas.Top="409" />
 
         </Canvas>

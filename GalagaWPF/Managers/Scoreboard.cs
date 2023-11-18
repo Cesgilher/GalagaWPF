@@ -14,51 +14,24 @@ namespace GalagaWPF.Controller
 
         public Scoreboard()
         {
-            this.scores = db.Scores.ToList();
-        }
-
-
-        public List<Score> GetScores()
-        {           
-            return scores;
-        }
-
-        public void SafeScores()
-        {
-            var existingScores = db.Scores.ToList();
-
-            foreach (var existingScore in existingScores)
-            {
-                var localScore = scores.FirstOrDefault(s => s.Id == existingScore.Id);
-                if (localScore == null) 
-                {
-                    db.Scores.Remove(existingScore);
-                }
-                else
-                {
-                    db.Entry(existingScore).CurrentValues.SetValues(localScore);
-                }
-            }
-            
-            foreach (var newScore in scores.Where(s => !existingScores .Any(e => e.Id == s.Id)))
-            {
-                db.Scores.Add(newScore);
-
-            }
-
-            db.SaveChanges();
             
         }
 
-        public void AddScore(Score score)
+
+        
+        
+
+        public void SafeScore(Score score)
         {
+            scores = db.Scores.ToList();
             bool allPointsLower = scores
                 .Where(s => s.IdUser == score.IdUser)
                 .All(s => s.Points < score.Points);
 
             if (allPointsLower)
             {
-                scores.Add(score);
+                db.Scores.Add(score);
+                db.SaveChanges();
             }
 
         }

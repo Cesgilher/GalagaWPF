@@ -25,6 +25,13 @@ namespace GalagaWPF.Models
             this.level = level;
         }
 
+        public Score(int idUser, int points, int level)
+        {
+            this.idUser = idUser;
+            this.points = points;
+            this.level = level;
+        }
+
         public int Id { get => id; set => id = value; }
         public int IdUser { get => idUser; set => idUser = value; }
         public int Points { get => points; set => points = value; }
