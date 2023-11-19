@@ -35,10 +35,10 @@ namespace GalagaWPF.Controller
                 orderby score.Points descending
                 select new
                 {
-                    UserName = user.Name,
-                    UserLastName = user.LastName,
-                    ScorePoints = score.Points,
-                    ScoreLevel = score.Level
+                    Name = user.Name,
+                    LastName = user.LastName,
+                    Points = score.Points,
+                    Level = score.Level
                 }
             ).Take(10).ToList<object>();
             

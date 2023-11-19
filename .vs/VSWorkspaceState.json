@@ -2,6 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\GalagaWPF",
+    "\\GalagaWPF\\bin",
+    "\\GalagaWPF\\bin\\Debug",
+    "\\GalagaWPF\\bin\\Release",
+    "\\GalagaWPF\\Managers",
+    "\\GalagaWPF\\Models",
     "\\GalagaWPF\\Views"
   ],
   "SelectedNode": "\\GalagaWPF.sln",
