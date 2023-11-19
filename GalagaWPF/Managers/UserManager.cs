@@ -43,10 +43,7 @@ namespace GalagaWPF.Controller
         {
             return users;
         }
-        //public void SafeToUserFile()
-        //{
-        //    dB.SaveAll(users);
-        //}
+        
         public void Register(User user)
         {
             if (users != null)
